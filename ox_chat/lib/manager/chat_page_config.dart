@@ -124,6 +124,22 @@ extension InputMoreItemEx on InputMoreItem {
         },
       );
 
+  static groupCall(BuildContext pageContext, ChatGeneralHandler handler, String? groupId) =>
+      InputMoreItem(
+        id: 'groupcall',
+        title: () => Localized.text('ox_chat_ui.input_more_group_call'),
+        iconName: 'chat_group_call_icon.png',
+        action: (context) {
+          final tempGroupId = groupId;
+          if (tempGroupId == null) {
+            ChatLogUtils.error(className: 'ChatPageConfig', funcName: 'groupcall', message: 'user is null');
+            CommonToast.instance.show(context, 'User info not found');
+            return ;
+          }
+          handler.groupCallPressHandler(pageContext, tempGroupId);
+        },
+      );
+
   static zaps(ChatGeneralHandler handler, UserDB? otherUser) =>
       InputMoreItem(
         id: 'zaps',

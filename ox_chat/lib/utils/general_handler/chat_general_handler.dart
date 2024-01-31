@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cashu_dart/cashu_dart.dart';
+import 'package:ox_chat/page/contacts/voice_call_choose_members_page.dart';
 import 'package:ox_chat/utils/general_handler/chat_mention_handler.dart';
 import 'package:ox_chat/utils/send_message/chat_send_message_helper.dart';
 import 'package:ox_common/business_interface/ox_chat/call_message_type.dart';
@@ -470,6 +471,36 @@ extension ChatInputMoreHandlerEx on ChatGeneralHandler {
         context,
         user,
         oxActionModel.identify == 1 ? CallMessageType.audio : CallMessageType.video,
+      );
+    }
+  }
+
+  void groupCallPressHandler(BuildContext pageContext, String groupId) async {
+    // OXNavigator.presentPage(
+    //   context,
+    //       (context) => VoiceCallChooseMembersPage(
+    //     groupId: groupId,
+    //   ),
+    //   fullscreenDialog: true,
+    // );
+    final height = MediaQuery.of(pageContext).size.height - MediaQuery.of(pageContext).padding.top;
+    List<UserDB>? selectList = await showModalBottomSheet(
+      context: pageContext,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) => Container(
+        height: height,
+        child: VoiceCallChooseMembersPage(
+          groupId: groupId,
+        ),
+      ),
+    );
+    LogUtil.e('Michael:---groupCallPressHandler--selectList =${selectList?.length}');
+    if (selectList != null) {
+      OXCallingInterface.pushGroupCallingPage(
+        pageContext,
+        selectList,
+        CallMessageType.audio,
       );
     }
   }
