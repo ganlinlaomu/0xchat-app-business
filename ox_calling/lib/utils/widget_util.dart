@@ -1,4 +1,7 @@
 import 'package:chatcore/chat-core.dart';
+import 'package:flutter/material.dart';
+import 'package:ox_common/utils/adapt.dart';
+import 'package:ox_common/widgets/common_image.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 
 ///Title: widget_util
@@ -26,4 +29,24 @@ extension OXCallStr on String {
     }
     return text;
   }
+}
+
+Widget abbrText(String content, double fontSize, Color txtColor, {TextAlign? textAlign, double? height, FontWeight fontWeight = FontWeight.w400}) {
+  return Text(
+    content,
+    textAlign: textAlign,
+    softWrap: true,
+    style: TextStyle(fontSize: Adapt.px(fontSize), color: txtColor, fontWeight: fontWeight, height: height),
+  );
+}
+
+Widget assetIcon(String iconName, double widthD, double heightD, {bool useTheme = false, BoxFit? fit}) {
+  return CommonImage(
+      useTheme: useTheme,
+      iconName: iconName,
+      width: Adapt.px(widthD),
+      height: Adapt.px(heightD),
+      fit: fit,
+      package: 'ox_calling'
+  );
 }
