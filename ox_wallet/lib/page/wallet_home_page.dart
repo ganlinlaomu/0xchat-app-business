@@ -34,7 +34,7 @@ class _WalletHomePageState extends State<WalletHomePage> with CommonStateViewMix
   void initState() {
     _scrollController.addListener(_scrollListener);
     _getRecentTransaction();
-    _balanceChangedListener = EcashListener(onEcashBalanceChanged: (value)=>_onBalanceChanged,onInvoicePaidChanged: (value)=>_onBalanceChanged());
+    _balanceChangedListener = EcashListener(onEcashBalanceChanged: (value) => _onBalanceChanged(), onInvoicePaidChanged: (value) => _onBalanceChanged());
     Cashu.addInvoiceListener(_balanceChangedListener);
     super.initState();
   }
@@ -124,7 +124,7 @@ class _WalletHomePageState extends State<WalletHomePage> with CommonStateViewMix
       title: AnimatedOpacity(
         opacity: _opacity,
         duration: const Duration(milliseconds: 100),
-        child: const Text('Wallet'),
+        child: const Text('Cashu Wallet'),
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -162,7 +162,7 @@ class _WalletHomePageState extends State<WalletHomePage> with CommonStateViewMix
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            "Wallet",
+            "Cashu Wallet",
             style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w400,height: 25.px / 18.px),
           ),
           SizedBox(
@@ -230,7 +230,6 @@ class _WalletHomePageState extends State<WalletHomePage> with CommonStateViewMix
             child: commonStateViewWidget(
               context,
               ListView.builder(
-                itemExtent: 53.px,
                 padding: EdgeInsets.only(bottom: 68.px + 10.px),
                 itemBuilder: (BuildContext context, int index){
                   final record = _recentTransaction[index];
@@ -352,8 +351,8 @@ extension IHistoryTypeEx on IHistoryType {
   String get name {
     switch (this) {
       case IHistoryType.unknown: return 'Unknown';
-      case IHistoryType.eCash: return 'Ecash';
-      case IHistoryType.lnInvoice: return 'Lightning';
+      case IHistoryType.eCash: return 'Ecash Payment';
+      case IHistoryType.lnInvoice: return 'Lightning Payment';
       case IHistoryType.multiMintSwap: return 'Multi Mint Swap';
     }
   }
