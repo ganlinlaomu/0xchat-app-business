@@ -86,7 +86,7 @@ class _EcashNavigationBarState extends State<EcashNavigationBar> {
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: ThemeColor.color180.withOpacity(0.72),
+            color: ThemeColor.color180.withOpacity(0.9),
             borderRadius: BorderRadius.circular(24.px),
             boxShadow: [
               BoxShadow(
@@ -111,7 +111,7 @@ class _EcashNavigationBarState extends State<EcashNavigationBar> {
                 onTap: () => WalletUtils.gotoScan(
                     context, (result) => ScanUtils.analysis(context, result)),
               ),
-              if (isShowSwap)
+              // if (isShowSwap)
                 NavigationBarItem(
                   label: Localized.text('ox_wallet.swap_text'),
                   iconName: 'icon_swap.png',

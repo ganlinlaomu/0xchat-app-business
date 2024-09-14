@@ -52,17 +52,32 @@ class PrivacyPolicyWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // const Text('By add your mint you accept the'),
-                Text(Localized.text('ox_wallet.privacy_policy_tips')),
-                FittedBox(
-                  child: Row(
-                    children: [
-                      // _highlightText(text: 'Terms of Use', onTap: () => _openLinkURL(context, url: _termsOfUser, title: 'Terms of Use')),
-                      // const Text(' and '),
-                      // _highlightText(text: 'Privacy Policy', onTap: () => _openLinkURL(context, url: _privacyPolicy, title: 'Privacy Policy')),
-                      _highlightText(text: Localized.text('ox_wallet.disclaimer_text'), onTap: () => _openDisclaimerLocalLink(context, title: '0xchat Wallet Disclaimer')),
-                    ],
-                  ),
-                )
+                Text('By add your mint you accept the'),
+                Row(
+                  children: [
+                    FittedBox(
+                      child: Row(
+                        children: [
+                          // _highlightText(text: 'Terms of Use', onTap: () => _openLinkURL(context, url: _termsOfUser, title: 'Terms of Use')),
+                          // const Text(' and '),
+                          // _highlightText(text: 'Privacy Policy', onTap: () => _openLinkURL(context, url: _privacyPolicy, title: 'Privacy Policy')),
+                          _highlightText(text: 'Terms of Use', onTap: () => _openDisclaimerLocalLink(context, title: '0xchat Wallet Disclaimer')),
+                        ],
+                      ),
+                    ),
+                    Text(' and '),
+                    FittedBox(
+                      child: Row(
+                        children: [
+                          // _highlightText(text: 'Terms of Use', onTap: () => _openLinkURL(context, url: _termsOfUser, title: 'Terms of Use')),
+                          // const Text(' and '),
+                          // _highlightText(text: 'Privacy Policy', onTap: () => _openLinkURL(context, url: _privacyPolicy, title: 'Privacy Policy')),
+                          _highlightText(text: 'Privacy Policy', onTap: () => _openDisclaimerLocalLink(context, title: '0xchat Wallet Disclaimer')),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

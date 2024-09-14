@@ -25,7 +25,7 @@ class WalletBackupFundsPage extends StatefulWidget {
 
 class _WalletBackupFundsPageState extends State<WalletBackupFundsPage> {
 
-  final content = Localized.text('ox_wallet.backup_funds_instruction');
+  final content = "The existing backup process represents a rudimentary implementation. It creates a Cashu token from mints and proofs which becomes invalid after new transactions. To restore the token on a new device, follow the familiar claiming process and the old balance becomes invalid. Avoid redeeming on top of the current balance to prevent errors. It's worth mentioning that we're actively engaged in developing a seed phrase backup solution for enhanced security and convenience. Note: You can also create a backup for a single mint under 'Options' > 'Mint management' > 'Select mint' > 'Backup funds'.";
   String? _cashuToken;
   bool _isCopied = false;
 
@@ -46,7 +46,7 @@ class _WalletBackupFundsPageState extends State<WalletBackupFundsPage> {
         ),
         body: SingleChildScrollView(
           child: CommonLabeledCard(
-            label: Localized.text('ox_wallet.cashu_token'),
+            label: 'Public Key',
             child: Column(
               children: [
                 _buildCashuTokenItem(),

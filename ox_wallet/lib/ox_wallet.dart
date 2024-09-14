@@ -123,6 +123,8 @@ class OXWallet extends OXFlutterModule {
   }
 
   void openWalletHomePage() {
+    OXNavigator.pushPage(null, (context) => const WalletPage(),);
+    return;
     if (!EcashManager.shared.isWalletSafeTipsSeen) {
       OXNavigator.pushPage(null, (context) => WalletSafetyTipsPage(
         nextStepHandler: (context) {

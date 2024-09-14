@@ -6,12 +6,15 @@ import 'package:ox_common/utils/adapt.dart';
 import 'package:ox_common/utils/theme_color.dart';
 import 'package:ox_common/utils/widget_tool.dart';
 import 'package:ox_common/widgets/common_appbar.dart';
+import 'package:ox_common/widgets/common_button.dart';
 import 'package:ox_common/widgets/common_image.dart';
 import 'package:ox_common/widgets/common_loading.dart';
 import 'package:ox_common/widgets/common_toast.dart';
 import 'package:ox_common/widgets/theme_button.dart';
+import 'package:ox_wallet/page/wallet_create_nip60_page.dart';
 import 'package:ox_wallet/page/wallet_home_page.dart';
 import 'package:ox_wallet/page/wallet_mint_management_add_page.dart';
+import 'package:ox_wallet/page/wallet_restore_page.dart';
 import 'package:ox_wallet/services/ecash_manager.dart';
 import 'package:ox_wallet/services/ecash_service.dart';
 import 'package:ox_wallet/widget/ecash_common_button.dart';
@@ -32,8 +35,9 @@ class _WalletPageState extends State<WalletPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ThemeColor.color190,
+        backgroundColor: ThemeColor.color200,
         appBar: CommonAppBar(
+        backgroundColor: ThemeColor.color200,
         centerTitle: true,
         useLargeTitle: false,
     ),
@@ -56,7 +60,7 @@ class _WalletPageState extends State<WalletPage> {
               useTheme: true,
             ).setPaddingOnly(top: 16.px),
             Text(
-              Localized.text('ox_wallet.mint_guide_text'),
+              'You can either use the pre-exisiting\n eNuts mint or introduce another\n custom mint.',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.w400,
@@ -66,9 +70,30 @@ class _WalletPageState extends State<WalletPage> {
               ),
             ).setPaddingOnly(top: 56.px),
             SizedBox(height: 200.px,),
-            ThemeButton(height: 48.px,text: Localized.text('ox_wallet.use_default_mint_text'),onTap: _useDefaultMint,),
-            EcashCommonButton(text: Localized.text('ox_wallet.add_mint_url_text'),onTap: _addMint).setPaddingOnly(top: 18.px),
-            EcashCommonButton(text: Localized.text('ox_wallet.import_mint_text'),onTap: _importWallet).setPaddingOnly(top: 18.px),
+            CommonButton(width:double.infinity,
+                height: 48.px,
+                backgroundColor: ThemeColor.gradientMainStart,
+                cornerRadius:12.px,
+                content: 'Create local wallet',
+                fontWeight:FontWeight.w600,
+                onPressed: _useDefaultMint,
+            ).setPaddingOnly(top: 18.px),
+            CommonButton(width:double.infinity,
+              height: 48.px,
+              backgroundColor: ThemeColor.gradientMainEnd,
+              cornerRadius:12.px,
+              content: 'Create nip60 wallet',
+              fontWeight:FontWeight.w600,
+              onPressed: _addMint,
+            ).setPaddingOnly(top: 18.px),
+            CommonButton(width:double.infinity,
+              height: 48.px,
+              backgroundColor: ThemeColor.color180,
+              cornerRadius:12.px,
+              content: 'Restore wallet',
+              fontWeight:FontWeight.w600,
+              onPressed: _importWallet,
+            ).setPaddingOnly(top: 18.px),
             PrivacyPolicyWidget(controller: _hasAgreedToPrivacyPolicy,).setPaddingOnly(top: 18.px),
             SizedBox(height: 40.px,)
             ],
@@ -91,23 +116,23 @@ class _WalletPageState extends State<WalletPage> {
   }
 
   void _useDefaultMint() {
-    if(!_checkPrivacyPolicyAgreement()) return;
-    OXLoading.show();
-    EcashService.addMint(_defaultMintURL).then((mint) {
-      OXLoading.dismiss();
-      if (mint != null || EcashManager.shared.mintList.any((mint) => mint.mintURL.toLowerCase() == _defaultMintURL.toLowerCase())) {
-        EcashManager.shared.setWalletAvailable();
-        OXNavigator.pushPage(context, (context) => const WalletHomePage());
-      } else {
-        CommonToast.instance.show(context, Localized.text('ox_wallet.add_default_mint_failed_tips'));
-      }
-    });
+    OXNavigator.pushPage(context, (context) => WalletCreateNip60Page());
+    // if(!_checkPrivacyPolicyAgreement()) return;
+    // OXLoading.show();
+    // EcashService.addMint(_defaultMintURL).then((mint) {
+    //   OXLoading.dismiss();
+    //   if (mint != null || EcashManager.shared.mintList.any((mint) => mint.mintURL.toLowerCase() == _defaultMintURL.toLowerCase())) {
+    //     EcashManager.shared.setWalletAvailable();
+    //     OXNavigator.pushPage(context, (context) => const WalletHomePage());
+    //   } else {
+    //     CommonToast.instance.show(context, Localized.text('ox_wallet.add_default_mint_failed_tips'));
+    //   }
+    // });
   }
 
   void _importWallet(){
     if(!_checkPrivacyPolicyAgreement()) return;
-    OXNavigator.pushPage(context, (context) => WalletMintManagementAddPage(
-        action: ImportAction.import,
+    OXNavigator.pushPage(context, (context) => WalletRestorePage(
         scenarioType: ScenarioType.activate,
         callback: () => OXNavigator.pushPage(context!, (context) => const WalletHomePage()),
       ),
